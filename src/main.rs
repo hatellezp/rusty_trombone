@@ -2,7 +2,7 @@ mod constants;
 mod fourier;
 mod io_utils;
 
-use hound::{SampleFormat, WavSpec};
+use hound::WavSpec;
 use std::i16;
 
 use crate::io_utils::*;
@@ -17,7 +17,6 @@ fn main() {
     };
 
     // sample generator (can be a simple call to an array)
-    let sg = simple_sg;
     let sg = simple_toy_sample;
 
     // duration of the sample is given in terms of the sample rate

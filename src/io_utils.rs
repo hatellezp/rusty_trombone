@@ -1,4 +1,4 @@
-use hound::{WavIntoSamples, WavReader, WavSpec, WavWriter};
+use hound::{WavReader, WavSpec, WavWriter};
 
 use std::f32::consts::PI;
 use std::fs::File;
@@ -45,15 +45,3 @@ pub fn simple_sg(t: usize) -> i16 {
 
     return (sample * amplitude) as i16;
 }
-
-// TODO
-/*
-pub fn create_sg(reader: WavReader<BufReader<File>>) -> SampleGeneratorI16 {
-    let into_samples: WavIntoSamples<BufReader<File>, i16> = reader.into_samples();
-
-    let sg = |t: usize| match into_samples.next() {
-        Some(res) => res.unwrap(),
-        None => 0 as i16,
-    };
-}
-*/
