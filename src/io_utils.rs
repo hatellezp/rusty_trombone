@@ -5,6 +5,8 @@ use std::fs::File;
 use std::i16;
 use std::io::BufReader;
 
+// TODO: change BufReader<File> to something that accept generics
+
 pub fn read(filename: &str) -> WavReader<BufReader<File>> {
     WavReader::open(filename).unwrap()
 }
@@ -44,14 +46,15 @@ pub fn simple_sg(t: usize) -> i16 {
     return (sample * amplitude) as i16;
 }
 
+/*
 pub fn create_sample_generator_from_reader(
     reader: &mut WavReader<BufReader<File>>,
-) -> impl FnMut(usize) -> i16 + '_ {
+) -> (impl Fn(usize) -> i16) {
     let mut samples: WavSamples<BufReader<File>, i16> = reader.samples();
 
     let samples_length = samples.len();
 
-    let f = move |t: usize| {
+    let f = |t: usize| {
         if t < samples_length {
             samples.next().unwrap().unwrap()
         } else {
@@ -61,3 +64,4 @@ pub fn create_sample_generator_from_reader(
 
     f
 }
+*/
