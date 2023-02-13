@@ -46,22 +46,3 @@ pub fn simple_sg(t: usize) -> i16 {
     return (sample * amplitude) as i16;
 }
 
-/*
-pub fn create_sample_generator_from_reader(
-    reader: &mut WavReader<BufReader<File>>,
-) -> (impl Fn(usize) -> i16) {
-    let mut samples: WavSamples<BufReader<File>, i16> = reader.samples();
-
-    let samples_length = samples.len();
-
-    let f = |t: usize| {
-        if t < samples_length {
-            samples.next().unwrap().unwrap()
-        } else {
-            0 as i16
-        }
-    };
-
-    f
-}
-*/
