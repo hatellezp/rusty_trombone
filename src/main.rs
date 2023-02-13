@@ -57,11 +57,8 @@ pub fn simple_toy_sample(t: usize) -> i16 {
         .map(|x| (x % 43) as f32)
         .collect::<Vec<f32>>();
     let value = fourier::evaluate(value as f32, &coeffs, None);
-    let divisor = match (t + 1) > (i16::MAX as usize) {
-        true => (t - i16::MAX as usize) as i16 + 1,
-        _ => (t + 1) as i16,
-    };
-    let amplitude = (i16::MAX / divisor) as f32;
+    let divisor = (t + 1) as i16;
+    let amplitude = (i16::MAX / (divisor + 1)) as f32;
 
     (value * amplitude) as i16
 }
