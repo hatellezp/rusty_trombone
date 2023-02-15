@@ -1,4 +1,4 @@
-use hound::{SampleFormat};
+use hound::SampleFormat;
 
 pub const DEFAULT_CHANNELS: u16 = 2;
 pub const DEFAULT_SAMPLE_RATE: u32 = 44100;
