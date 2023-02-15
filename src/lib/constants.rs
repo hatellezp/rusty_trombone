@@ -6,5 +6,5 @@ pub const DEFAULT_BITS_PER_SAMPLE: u16 = 16;
 pub const DEFAULT_SAMPLE_FORMAT: SampleFormat = SampleFormat::Int;
 
 pub trait SampleGenerator<O: Sample> {
-    fn sample(n: usize) -> O;
+    fn next(&mut self) -> Option<O>;
 }

@@ -1,12 +1,7 @@
-mod constants;
-mod fourier;
-mod io_utils;
-mod utils;
+use trombone::{constants, io_utils, fourier};
 
 use hound::WavSpec;
 use std::i16;
-
-use crate::io_utils::*;
 
 fn main() {
     // spec
@@ -25,11 +20,11 @@ fn main() {
     let duration: usize = (spec.sample_rate * seconds) as usize;
 
     // write to filename with spec and sample generator
-    let _ = write("sine.wav", spec, sg, duration);
+    let _ = io_utils::write("sine.wav", spec, sg, duration);
 
     // give a filename and everything is get from the reader struct
     let filename = "sample2.wav";
-    let mut reader = read(filename);
+    let mut reader = io_utils::read(filename);
 
     let spec = reader.spec();
     let duration = reader.duration();

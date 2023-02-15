@@ -1,4 +1,4 @@
-use hound::{WavReader, WavSamples, WavSpec, WavWriter};
+use hound::{WavReader, WavSpec, WavWriter};
 
 use std::fs::File;
 use std::i16;
