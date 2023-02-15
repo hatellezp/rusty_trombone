@@ -1,7 +1,11 @@
 /target
+/dist
+/build
 
 *.wav
 *.py
+*.exe
+*.spec
+*.sh
+
 rusty_trombone
-run.sh
-rusty_trombone.exe
