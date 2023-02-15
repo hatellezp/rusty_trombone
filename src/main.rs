@@ -1,6 +1,7 @@
 mod constants;
 mod fourier;
 mod io_utils;
+mod utils;
 
 use hound::WavSpec;
 use std::i16;
@@ -61,6 +62,7 @@ pub fn simple_toy_sample(t: usize) -> i16 {
         true => (t - i16::MAX as usize) as i16 + 1,
         _ => (t + 1) as i16,
     };
+    let divisor = if divisor == 0 { divisor + 1 } else { divisor };
     let amplitude = (i16::MAX / divisor) as f32;
 
     (value * amplitude) as i16
