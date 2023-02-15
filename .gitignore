@@ -1,6 +1,7 @@
 /target
 
 *.wav
+*.py
 rusty_trombone
 run.sh
 rusty_trombone.exe
