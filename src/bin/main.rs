@@ -1,4 +1,4 @@
-use trombone::{constants, io_utils, fourier};
+use trombone::{constants, fourier, io_utils};
 
 use hound::WavSpec;
 use std::i16;
