@@ -8,7 +8,7 @@ pub trait SampleGenerator<O: Sample> {
     fn next(&mut self) -> Option<O>;
 }
 
-struct SGi16 {
+pub struct SGi16 {
     samples: WavIntoSamples<BufReader<File>, i16>,
 }
 
@@ -34,7 +34,7 @@ impl SampleGenerator<i16> for SGi16 {
     }
 }
 
-struct DummySGi16 {
+pub struct DummySGi16 {
     t: usize,
 }
 

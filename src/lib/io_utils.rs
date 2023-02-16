@@ -1,3 +1,5 @@
+use crate::sample_generator::SampleGenerator;
+
 use hound::{WavReader, WavSpec, WavWriter};
 
 use std::fs::File;
@@ -5,21 +7,25 @@ use std::i16;
 use std::io::BufReader;
 
 // TODO: change BufReader<File> to something that accept generics
-
 pub fn read(filename: &str) -> WavReader<BufReader<File>> {
     WavReader::open(filename).unwrap()
 }
 
-pub fn write<SG: Fn(usize) -> i16>(
+pub fn write<SG: SampleGenerator<i16>>(
     filename: &str,
     spec: WavSpec,
-    sg: SG,
+    sg: &mut SG,
     duration: usize,
 ) -> Result<(), hound::Error> {
     let mut writer = WavWriter::create(filename, spec).unwrap();
 
-    for t in 0..duration {
-        writer.write_sample(sg(t)).unwrap();
+    for _ in 0..duration {
+        let value = match sg.next() {
+            Some(v) => v,
+            _ => 0,
+        };
+
+        writer.write_sample(value).unwrap();
     }
 
     writer.finalize()
