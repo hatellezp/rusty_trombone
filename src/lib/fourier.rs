@@ -1,8 +1,5 @@
 use num::complex::Complex;
-// use rustfft::FftPlanner;
 use std::f32::consts::PI;
-// use std::fs::File;
-// use std::io::BufReader;
 
 pub fn evaluate(point: f32, coeffs: &[f32], offset: Option<usize>) -> f32 {
     let offset = offset.unwrap_or(0);
