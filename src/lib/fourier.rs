@@ -1,4 +1,5 @@
 use num::complex::Complex;
+use rustfft::{num_complex::Complex as FftComplex, FftPlanner};
 use std::f32::consts::PI;
 
 pub fn evaluate(point: f32, coeffs: &[f32], offset: Option<usize>) -> f32 {
@@ -21,4 +22,18 @@ pub fn evaluate(point: f32, coeffs: &[f32], offset: Option<usize>) -> f32 {
             accum + rho * arg.sin()
         })
         .re
+}
+
+pub fn fft_forward(data: &mut [FftComplex<f32>]) {
+    let mut planner = FftPlanner::new();
+    let fft = planner.plan_fft_forward(data.len());
+
+    fft.process(data);
+}
+
+pub fn fft_inverse(data: &mut [FftComplex<f32>]) {
+    let mut planner = FftPlanner::new();
+    let fft = planner.plan_fft_inverse(data.len());
+
+    fft.process(data);
 }

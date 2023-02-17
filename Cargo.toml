@@ -13,7 +13,18 @@ path="src/lib/lib.rs"
 name="rusty_trombone"
 path="src/bin/main.rs"
 
+[[bin]]
+name="write_example"
+path="src/bin/write_example.rs"
+
+[[bin]]
+name="read_example"
+path="src/bin/read_example.rs"
+
 [dependencies]
 hound = "*"
 num="*"
 rustfft="6.1.0"
+# plotters="0.3.3"  # failing for the moment ... ?
+nalgebra="*"
+smartcore="0.2.0"

@@ -9,3 +9,5 @@
 *.sh
 
 rusty_trombone
+write_example
+read_example

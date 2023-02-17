@@ -4,24 +4,24 @@ use std::fs::File;
 use std::i16;
 use std::io::BufReader;
 
-pub trait SampleGenerator<O: Sample> {
-    fn next(&mut self) -> Option<O>;
+pub trait SampleGenerator<S: Sample> {
+    fn next(&mut self) -> Option<S>;
 }
 
-pub struct SGi16 {
-    samples: WavIntoSamples<BufReader<File>, i16>,
+pub struct SGFromSamples<S: Sample> {
+    samples: WavIntoSamples<BufReader<File>, S>,
 }
 
-impl SGi16 {
+impl<S: Sample> SGFromSamples<S> {
     pub fn new(reader: WavReader<BufReader<File>>) -> Self {
-        let samples: WavIntoSamples<BufReader<File>, i16> = reader.into_samples();
+        let samples: WavIntoSamples<BufReader<File>, S> = reader.into_samples();
 
-        SGi16 { samples }
+        SGFromSamples { samples }
     }
 }
 
-impl SampleGenerator<i16> for SGi16 {
-    fn next(&mut self) -> Option<i16> {
+impl<S: Sample> SampleGenerator<S> for SGFromSamples<S> {
+    fn next(&mut self) -> Option<S> {
         let res = self.samples.next();
 
         match res {
@@ -70,5 +70,30 @@ impl SampleGenerator<i16> for DummySGi16 {
         self.increase();
 
         Some(self.get(t))
+    }
+}
+
+pub struct SGfromArray<S: Sample> {
+    index: usize,
+    data: Vec<S>,
+}
+
+impl<S: Sample + Copy> SGfromArray<S> {
+    pub fn new(data: &[S]) -> SGfromArray<S> {
+        SGfromArray {
+            index: 0,
+            data: data.iter().map(|x| *x).collect::<Vec<S>>(),
+        }
+    }
+}
+
+impl SampleGenerator<i16> for SGfromArray<i16> {
+    fn next(&mut self) -> Option<i16> {
+        if self.index >= self.data.len() {
+            None
+        } else {
+            self.index += 1;
+            Some(self.data[self.index - 1])
+        }
     }
 }
