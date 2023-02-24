@@ -82,7 +82,7 @@ impl<S: Sample + Copy> SGfromArray<S> {
     pub fn new(data: &[S]) -> SGfromArray<S> {
         SGfromArray {
             index: 0,
-            data: data.iter().map(|x| *x).collect::<Vec<S>>(),
+            data: data.to_vec(),
         }
     }
 }
