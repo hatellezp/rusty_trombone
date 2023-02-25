@@ -25,10 +25,7 @@ impl<S: Sample> SampleGenerator<S> for SGFromSamples<S> {
         let res = self.samples.next();
 
         match res {
-            Some(value) => match value {
-                Ok(value) => Some(value),
-                _ => None,
-            },
+            Some(Ok(value)) => Some(value),
             _ => None,
         }
     }
@@ -61,6 +58,12 @@ impl DummySGi16 {
 
     fn increase(&mut self) {
         self.t += 1;
+    }
+}
+
+impl Default for DummySGi16 {
+    fn default() -> Self {
+        Self::new()
     }
 }
 
