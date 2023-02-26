@@ -1,6 +1,7 @@
 /target
 /dist
 /build
+/executables
 
 *.wav
 *.py
@@ -9,6 +10,3 @@
 *.sh
 *.ps1
 
-rusty_trombone
-write_example
-read_example

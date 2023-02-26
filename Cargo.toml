@@ -10,8 +10,12 @@ name="trombone"
 path="src/lib/lib.rs"
 
 [[bin]]
-name="rusty_trombone"
-path="src/bin/main.rs"
+name="knn_example"
+path="src/bin/knn_example.rs"
+
+[[bin]]
+name="logistic_regression_example"
+path="src/bin/logistic_regression_example.rs"
 
 [[bin]]
 name="write_example"
