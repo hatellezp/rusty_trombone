@@ -1,5 +1,6 @@
+use ndarray::Array;
 use smartcore::dataset::iris::load_dataset;
-use smartcore::linalg::naive::dense_matrix::DenseMatrix;
+
 use smartcore::metrics::accuracy;
 use smartcore::neighbors::knn_classifier::KNNClassifier;
 
@@ -8,14 +9,14 @@ fn main() {
     let iris_data = load_dataset();
 
     // Turn Iris dataset into NxM matrix
-    let x = DenseMatrix::from_array(
-        iris_data.num_samples,
-        iris_data.num_features,
-        &iris_data.data,
-    );
+    let x = Array::from_shape_vec(
+        (iris_data.num_samples, iris_data.num_features),
+        iris_data.data,
+    )
+    .unwrap();
 
     // These are our target class labels
-    let y = iris_data.target;
+    let y = Array::from_shape_vec(iris_data.num_samples, iris_data.target).unwrap();
     // Fit KNN classifier to Iris dataset
     let knn = KNNClassifier::fit(&x, &y, Default::default()).unwrap();
 
