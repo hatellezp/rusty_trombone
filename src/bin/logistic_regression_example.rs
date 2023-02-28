@@ -17,6 +17,7 @@ fn main() {
     // Fit Logistic Regression to Iris dataset
     let lr = LogisticRegression::fit(&x, &y, Default::default()).unwrap();
     let y_hat = lr.predict(&x).unwrap(); // Predict class labels
+
     // Calculate training error
     println!("accuracy: {}", accuracy(&y, &y_hat)); // Prints 0.98
 }

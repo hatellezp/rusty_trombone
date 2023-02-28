@@ -3,6 +3,8 @@
 /build
 /executables
 
+/src/bin/test.rs
+
 *.wav
 *.py
 *.exe
