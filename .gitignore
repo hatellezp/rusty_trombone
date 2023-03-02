@@ -1,13 +1,14 @@
 /target
 /dist
 /build
+/executables
+
+/src/bin/test.rs
 
 *.wav
 *.py
 *.exe
 *.spec
 *.sh
+*.ps1
 
-rusty_trombone
-write_example
-read_example

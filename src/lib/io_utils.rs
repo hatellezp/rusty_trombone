@@ -45,3 +45,14 @@ pub fn to_vec<S: Sample>(
     v.truncate(duration.unwrap_or(v.len()));
     v
 }
+
+pub fn read_batch<S: Sample>(
+    filenames: &[&str],
+    duration: Option<usize>,
+) -> Vec<(WavSpec, Vec<S>)> {
+    filenames
+        .iter()
+        .map(|filename| read(filename))
+        .map(|reader| (reader.spec(), to_vec(reader, duration)))
+        .collect::<Vec<(WavSpec, Vec<S>)>>()
+}

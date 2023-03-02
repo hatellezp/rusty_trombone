@@ -25,10 +25,7 @@ impl<S: Sample> SampleGenerator<S> for SGFromSamples<S> {
         let res = self.samples.next();
 
         match res {
-            Some(value) => match value {
-                Ok(value) => Some(value),
-                _ => None,
-            },
+            Some(Ok(value)) => Some(value),
             _ => None,
         }
     }
@@ -64,6 +61,12 @@ impl DummySGi16 {
     }
 }
 
+impl Default for DummySGi16 {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl SampleGenerator<i16> for DummySGi16 {
     fn next(&mut self) -> Option<i16> {
         let t = self.t;
@@ -82,7 +85,7 @@ impl<S: Sample + Copy> SGfromArray<S> {
     pub fn new(data: &[S]) -> SGfromArray<S> {
         SGfromArray {
             index: 0,
-            data: data.iter().map(|x| *x).collect::<Vec<S>>(),
+            data: data.to_vec(),
         }
     }
 }
