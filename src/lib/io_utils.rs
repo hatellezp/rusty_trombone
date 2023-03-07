@@ -49,10 +49,35 @@ pub fn to_vec<S: Sample>(
 pub fn read_batch<S: Sample>(
     filenames: &[&str],
     duration: Option<usize>,
-) -> Vec<(WavSpec, Vec<S>)> {
-    filenames
-        .iter()
-        .map(|filename| read(filename))
-        .map(|reader| (reader.spec(), to_vec(reader, duration)))
-        .collect::<Vec<(WavSpec, Vec<S>)>>()
+    allow_dirty: bool,
+) -> Vec<(String, WavSpec, Vec<S>)> {
+    let wav_reader_filter =
+        |reader: &WavReader<BufReader<File>>| match (allow_dirty, duration.is_some()) {
+            (true, true) => {
+                if (duration.unwrap() as u32) > reader.duration() {
+                    None
+                } else {
+                    Some(())
+                }
+            }
+            _ => Some(()),
+        };
+
+    let mut values = vec![];
+
+    for index in 0..filenames.len() {
+        let filename = filenames[index];
+        let reader = read(filename);
+
+        let is_good = wav_reader_filter(&reader).is_some();
+
+        if is_good {
+            let spec = reader.spec().clone();
+            let data = to_vec::<S>(reader, duration);
+
+            values.push((filename.to_string(), spec, data))
+        }
+    }
+
+    values
 }
